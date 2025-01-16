@@ -27,6 +27,13 @@ app.on("ready", () => {
   ipcMain.on('minimize-window', () => {
     if (mainWindow) mainWindow.minimize();
   });
+
+  ipcMain.on('close-window',()=>{
+    if(mainWindow) mainWindow.close();
+  })
   
+  ipcMain.on('maximize-window',()=>{
+    if(mainWindow) mainWindow.maximize();
+  })
 });
 
