@@ -9,14 +9,13 @@ app.on("ready", () => {
     height: 800,
     minHeight: 650,
     minWidth: 600,
-    frame: true,
-    webPreferences:{
-      preload:getPreloadPath(),
-    }
+    frame: false,
+    webPreferences: {
+      preload: getPreloadPath(),
+    },
   });
 
-  mainWindow.webContents.openDevTools()
-
+  // mainWindow.webContents.openDevTools()
 
   if (isDev()) {
     mainWindow.loadURL("http://localhost:5123");
@@ -24,16 +23,19 @@ app.on("ready", () => {
     mainWindow.loadFile(path.join(app.getAppPath(), "/dist-react/index.html"));
   }
 
-  ipcMain.on('minimize-window', () => {
+  ipcMain.on("minimize-window", () => {
     if (mainWindow) mainWindow.minimize();
   });
 
-  ipcMain.on('close-window',()=>{
-    if(mainWindow) mainWindow.close();
-  })
-  
-  ipcMain.on('maximize-window',()=>{
-    if(mainWindow) mainWindow.maximize();
-  })
-});
+  ipcMain.on("close-window", () => {
+    if (mainWindow) mainWindow.close();
+  });
 
+  ipcMain.on('toggle-maximize', () => {
+    if (mainWindow.isMaximized()) {
+      mainWindow.unmaximize(); // Restore to previous size
+    } else {
+      mainWindow.maximize(); // Maximize window
+    }
+  });
+});

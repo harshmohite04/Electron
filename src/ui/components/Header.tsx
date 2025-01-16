@@ -20,19 +20,17 @@ function Header() {
     }
   };
 
-  const handleMaximize =()=>{
+  const handleMaximize = () => {
     // @ts-ignore
-    if(window.electronAPI){
+    if (window.electronAPI) {
       // @ts-ignore
-      window.electronAPI.maximizeWindow();
+      window.electronAPI.toggleMaximize();
+    } else {
+      console.error('electronAPI is not available');
     }
-    else{
-      console.error('electronAPI is not available')
-    }
-  }
-
+  };
   return (
-    <div className="flex bg-black justify-between">
+    <div className="flex bg-black justify-between select-none">
       <div className="text-white">CODE AI</div>
       <div className="flex w-1/12">
         <div
@@ -41,8 +39,8 @@ function Header() {
         >
           -
         </div>
-        <div className="text-white w-1/3 text-center" onClick={handleMaximize}>[]</div>
-        <div className="text-white w-1/3 text-center" onClick={handleClose}>
+        <div className="text-white w-1/3 text-center cursor-pointer" onClick={handleMaximize}>[]</div>
+        <div className="text-white w-1/3 text-center cursor-pointer" onClick={handleClose}>
           X
         </div>
       </div>
